@@ -4,7 +4,6 @@ import android.content.Context
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
-import com.demo.movies.data.local.MoviesLocalRepository
 import com.demo.movies.data.local.MoviesRoomDatabase
 import com.demo.movies.data.model.MoviesList
 import com.demo.movies.utils.Utils
@@ -15,7 +14,6 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ApplicationComponent
 import dagger.hilt.android.qualifiers.ApplicationContext
 import org.json.JSONObject
-import java.io.InputStream
 import java.util.concurrent.Executors
 import javax.inject.Singleton
 
@@ -41,7 +39,7 @@ object  ApplicationModule {
                 override fun onCreate(db: SupportSQLiteDatabase) {
                     super.onCreate(db)
                     val dao = moviesRoomDatabase.moviesDao()
-                    val movies = dao.getAlphabetizedMovies()
+                    val movies = dao.getAllMovies()
                     if (movies.value ==null)
                     {
                         val moviesList = Gson().fromJson(JSONObject(Utils.loadMoviesFromAssets(appContext)).toString(), MoviesList::class.java).movies
