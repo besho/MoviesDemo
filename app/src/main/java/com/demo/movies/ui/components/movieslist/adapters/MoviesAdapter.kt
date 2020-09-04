@@ -13,7 +13,13 @@ import com.demo.movies.data.model.Movie
 import com.demo.movies.ui.components.ItemDetailActivity
 import com.demo.movies.ui.components.ItemDetailFragment
 import com.demo.movies.ui.components.movieslist.MoviesListActivity
+import com.demo.movies.utils.DUMMY_YEAR
+import com.google.gson.Gson
 
+const val MOVIE_ITEM  = 0
+const val Category_ITEM  = 1
+
+@Suppress("UNREACHABLE_CODE")
 class MoviesAdapter(private val parentActivity: MoviesListActivity,
                     private val moviesList: List<Movie>,
                     private val twoPane: Boolean) :
@@ -21,16 +27,13 @@ class MoviesAdapter(private val parentActivity: MoviesListActivity,
 
     private val onClickListener: View.OnClickListener
 
-    private val MOVIE_ITEM  = 0
-    private val Category_ITEM  = 1
-
     init {
         onClickListener = View.OnClickListener { v ->
-            val item = v.tag as Movie
+/*            val movie = v.tag as Movie
             if (twoPane) {
                 val fragment = ItemDetailFragment().apply {
                     arguments = Bundle().apply {
-                        putString(ItemDetailFragment.ARG_ITEM_ID, item.title)
+                        putString(ItemDetailFragment.ARG_MOVIE, Gson().toJson(movie))
                     }
                 }
                 parentActivity.supportFragmentManager
@@ -39,15 +42,15 @@ class MoviesAdapter(private val parentActivity: MoviesListActivity,
                     .commit()
             } else {
                 val intent = Intent(v.context, ItemDetailActivity::class.java).apply {
-                    putExtra(ItemDetailFragment.ARG_ITEM_ID, item.title)
+                    putExtra(ItemDetailFragment.ARG_MOVIE, Gson().toJson(movie))
                 }
                 v.context.startActivity(intent)
-            }
+            }*/
         }
     }
 
     override fun getItemViewType(position: Int): Int {
-        return if (moviesList[position].year == 0)
+        return if (moviesList[position].year == DUMMY_YEAR)
             Category_ITEM
         else
             MOVIE_ITEM
@@ -98,8 +101,6 @@ class MoviesAdapter(private val parentActivity: MoviesListActivity,
                 categoryHolder.categoryView.text = category.title
             }
         }
-
-
     }
 
     override fun getItemCount() = moviesList.size

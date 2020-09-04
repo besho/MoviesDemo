@@ -1,6 +1,7 @@
 package com.demo.movies.ui.components.movieslist
 
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -18,6 +19,7 @@ import com.demo.movies.ui.components.movieslist.adapters.MoviesAdapter
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_movies_list.*
+import kotlinx.android.synthetic.main.activity_movies_list.progressBar
 import kotlinx.android.synthetic.main.item_list.*
 
 
@@ -25,9 +27,9 @@ import kotlinx.android.synthetic.main.item_list.*
 class MoviesListActivity : BaseActivity() {
 
     private val mMoviesViewModel: MoviesViewModel by viewModels()
-    private var twoPane: Boolean = false
-    private var moviesList : ArrayList<Movie> = ArrayList()
-    private lateinit var moviesAdapter: MoviesAdapter
+    private var mTwoPane: Boolean = false
+    private var mMoviesList : ArrayList<Movie> = ArrayList()
+    private lateinit var mMoviesAdapter: MoviesAdapter
 
     override val layoutId: Int
         get() = R.layout.activity_movies_list
@@ -38,18 +40,22 @@ class MoviesListActivity : BaseActivity() {
         setSupportActionBar(toolbar)
         toolbar.title = title
         if (findViewById<NestedScrollView>(R.id.item_detail_container) != null) {
-            twoPane = true
+            mTwoPane = true
         }
 
     }
 
     override fun initializeView() {
         setupMoviesRecyclerView()
-        mMoviesViewModel.getMoviesList.observe(this, Observer {
+        setupObserver()
+    }
+
+    private fun setupObserver() {
+        mMoviesViewModel.mMoviesList.observe(this, Observer {
             if (it.isNotEmpty()) {
-                progress_bar.visibility = View.GONE
-                moviesList.addAll(it)
-                moviesAdapter.notifyDataSetChanged()
+                progressBar.visibility = View.GONE
+                mMoviesList.addAll(it)
+                mMoviesAdapter.notifyDataSetChanged()
 
             }
         })
@@ -61,33 +67,33 @@ class MoviesListActivity : BaseActivity() {
 
         resetMoviesList()
 
-        mMoviesViewModel.getMoviesList.observe(this, Observer {
+        mMoviesViewModel.mMoviesList.observe(this, Observer {
             if (it.isNotEmpty()) {
-                progress_bar.visibility = View.GONE
+                progressBar.visibility = View.GONE
                 if (searchKeyword.equals(""))
-                    moviesList.addAll(it)
+                    mMoviesList.addAll(it)
                 else
-                    moviesList.addAll(mMoviesViewModel.getMoviesCategorizedByYear(it))
-                moviesAdapter.notifyDataSetChanged()
+                    mMoviesList.addAll(mMoviesViewModel.getMoviesCategorizedByYear(it))
+                mMoviesAdapter.notifyDataSetChanged()
 
             } else {
-                progress_bar.visibility = View.GONE
-                Snackbar.make(moviesCL, R.string.no_search_result, Snackbar.LENGTH_LONG).show()
+                progressBar.visibility = View.GONE
+                Snackbar.make(moviesCL, R.string.no_search_result, Snackbar.LENGTH_SHORT).show()
             }
         })
     }
 
     private fun resetMoviesList() {
-        progress_bar.visibility = View.VISIBLE
-        moviesList.clear()
-        moviesAdapter.notifyDataSetChanged()
+        progressBar.visibility = View.VISIBLE
+        mMoviesList.clear()
+        mMoviesAdapter.notifyDataSetChanged()
     }
 
     private fun setupMoviesRecyclerView() {
-        moviesAdapter = MoviesAdapter(this, moviesList, twoPane)
+        mMoviesAdapter = MoviesAdapter(this, mMoviesList, mTwoPane)
 
         moviesRV.apply {
-            adapter = moviesAdapter
+            adapter = mMoviesAdapter
             layoutManager = LinearLayoutManager(this@MoviesListActivity)
         }
     }
@@ -101,11 +107,12 @@ class MoviesListActivity : BaseActivity() {
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 searchView.clearFocus()
+                startSearch(query)
                 return false
             }
-
-            override fun onQueryTextChange(searchKeyword: String?): Boolean {
-                startSearch(searchKeyword)
+            override fun onQueryTextChange(query: String?): Boolean {
+                if (query?.isEmpty()!!)
+                    startSearch(query)
                 return false
             }
         })
