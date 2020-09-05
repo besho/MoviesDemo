@@ -21,15 +21,18 @@
             android:textAppearance="?attr/textAppearanceListItem" />
 
         <LinearLayout
+            android:id="@+id/castLV"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
+            android:visibility="gone"
             android:orientation="horizontal">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/cast"
+                android:layout_marginEnd="8dp"
                 android:textAppearance="?attr/textAppearanceListItem" />
 
             <TextView
@@ -41,19 +44,22 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/genresLV"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
+            android:visibility="gone"
             android:orientation="horizontal">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/genre"
+                android:text="@string/genres"
+                android:layout_marginEnd="8dp"
                 android:textAppearance="?attr/textAppearanceListItem" />
 
             <TextView
-                android:id="@+id/genreTV"
+                android:id="@+id/genresTV"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?attr/textAppearanceListItem" />
@@ -70,6 +76,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/rate"
+                android:layout_marginEnd="8dp"
                 android:textAppearance="?attr/textAppearanceListItem" />
 
             <TextView
@@ -84,12 +91,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
             android:orientation="horizontal">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/year"
+                android:layout_marginEnd="8dp"
                 android:textAppearance="?attr/textAppearanceListItem" />
 
             <TextView

@@ -104,6 +104,7 @@ class MoviesListActivity : BaseActivity() {
         inflater.inflate(R.menu.movies_search, menu)
         val searchViewItem: MenuItem = menu.findItem(R.id.app_bar_search)
         val searchView: SearchView = MenuItemCompat.getActionView(searchViewItem) as SearchView
+        searchView.queryHint = getString( R.string.search_hint)
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 searchView.clearFocus()

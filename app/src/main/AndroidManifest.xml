@@ -2,6 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.demo.movies">
 
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:name=".MoviesApplication"
         android:allowBackup="true"
@@ -21,7 +24,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.components.ItemDetailActivity"
+            android:name=".ui.components.moviedetail.MovieDetailActivity"
             android:label="@string/title_item_detail"
             android:parentActivityName=".ui.components.movieslist.MoviesListActivity"
             android:theme="@style/AppTheme.NoActionBar">

@@ -14,7 +14,6 @@ interface MoviesDao{
     @Query("SELECT * from movies_table ORDER BY year DESC, rating DESC")
     fun getAllMovies(): LiveData<List<Movie>>
 
-    /*Search on Title, Genre, Cast and Year*/
     @Query("SELECT * from movies_table WHERE title LIKE '%' || :searchKeyword || '%' OR genres LIKE '%' || :searchKeyword || '%' OR `cast` LIKE '%' || :searchKeyword || '%' OR year LIKE '%' || :searchKeyword || '%' ORDER BY year DESC, rating DESC")
     fun getFilteredMovies(searchKeyword:String?): LiveData<List<Movie>>
 

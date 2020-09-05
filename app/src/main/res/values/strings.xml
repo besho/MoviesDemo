@@ -1,10 +1,13 @@
 <resources>
     <string name="app_name">Movies</string>
     <string name="title_item_detail">Movie Detail</string>
-    <string name="genre">Genre:</string>
+    <string name="genres">Genres:</string>
     <string name="year">Year:</string>
     <string name="rate">Rate:</string>
     <string name="cast">Cast:</string>
     <string name="no_search_result">Sorry, No Search Result Found.</string>
     <string name="search">Search</string>
+    <string name="reload">Reload</string>
+    <string name="search_hint">Name, Cast, Genres, Year</string>
+    <string name="no_photos">No Photos Available.</string>
 </resources>

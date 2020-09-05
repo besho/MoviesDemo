@@ -6,12 +6,13 @@ import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.demo.movies.R
 import com.demo.movies.data.model.Movie
-import com.demo.movies.ui.components.ItemDetailActivity
-import com.demo.movies.ui.components.ItemDetailFragment
+import com.demo.movies.ui.components.moviedetail.MovieDetailActivity
+import com.demo.movies.ui.components.moviedetail.MovieDetailFragment
 import com.demo.movies.ui.components.movieslist.MoviesListActivity
 import com.demo.movies.utils.DUMMY_YEAR
 import com.google.gson.Gson
@@ -29,11 +30,11 @@ class MoviesAdapter(private val parentActivity: MoviesListActivity,
 
     init {
         onClickListener = View.OnClickListener { v ->
-/*            val movie = v.tag as Movie
+            val movie = v.tag as Movie
             if (twoPane) {
-                val fragment = ItemDetailFragment().apply {
+                val fragment = MovieDetailFragment().apply {
                     arguments = Bundle().apply {
-                        putString(ItemDetailFragment.ARG_MOVIE, Gson().toJson(movie))
+                        putString(MovieDetailFragment.ARG_MOVIE, Gson().toJson(movie))
                     }
                 }
                 parentActivity.supportFragmentManager
@@ -41,11 +42,11 @@ class MoviesAdapter(private val parentActivity: MoviesListActivity,
                     .replace(R.id.item_detail_container, fragment)
                     .commit()
             } else {
-                val intent = Intent(v.context, ItemDetailActivity::class.java).apply {
-                    putExtra(ItemDetailFragment.ARG_MOVIE, Gson().toJson(movie))
+                val intent = Intent(v.context, MovieDetailActivity::class.java).apply {
+                    putExtra(MovieDetailFragment.ARG_MOVIE, Gson().toJson(movie))
                 }
                 v.context.startActivity(intent)
-            }*/
+            }
         }
     }
 
@@ -76,16 +77,27 @@ class MoviesAdapter(private val parentActivity: MoviesListActivity,
 
                 val movieHolder = holder as MovieViewHolder
                 movieHolder.titleView.text = movie.title
-                movieHolder.castView.text = movie.cast?.let {
-                    TextUtils.join(", ",
-                        it
-                    )
+
+                movie.cast?.let {
+                    if (it.size ==0)
+                        movieHolder.castLinearView.visibility = View.GONE
+                    else
+                    {
+                        movieHolder.castLinearView.visibility = View.VISIBLE
+                        movieHolder.castView.text = TextUtils.join(", ", it)
+                    }
                 }
-                movieHolder.genreView.text = movie.genres?.let {
-                    TextUtils.join(", ",
-                        it
-                    )
+
+                movie.genres?.let {
+                    if (it.size ==0)
+                        movieHolder.genreLinearView.visibility = View.GONE
+                    else
+                    {
+                        movieHolder.genreLinearView.visibility = View.VISIBLE
+                        movieHolder.genreView.text = TextUtils.join(", ", it)
+                    }
                 }
+
                 movieHolder.yearView.text = movie.year.toString()
                 movieHolder.rate.text = movie.rating.toString()
 
@@ -109,7 +121,9 @@ class MoviesAdapter(private val parentActivity: MoviesListActivity,
         val titleView: TextView = view.findViewById(R.id.titleTV)
         val yearView: TextView = view.findViewById(R.id.yearTV)
         val castView: TextView = view.findViewById(R.id.castTV)
-        val genreView: TextView = view.findViewById(R.id.genreTV)
+        val castLinearView: LinearLayout = view.findViewById(R.id.castLV)
+        val genreView: TextView = view.findViewById(R.id.genresTV)
+        val genreLinearView: LinearLayout = view.findViewById(R.id.genresLV)
         val rate: TextView = view.findViewById(R.id.rateTV)
     }
 

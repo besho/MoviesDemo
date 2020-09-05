@@ -1,10 +1,7 @@
 package com.demo.movies
 
-import androidx.recyclerview.widget.RecyclerView
 import androidx.test.espresso.Espresso.onView
-import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.action.ViewActions.typeText
-import androidx.test.espresso.contrib.RecyclerViewActions
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -27,7 +24,7 @@ class SearchMoviesBehaviorTest {
         } catch (e: InterruptedException) {
             e.printStackTrace()
         }
-        onView(withId(R.id.app_bar_search)).perform(typeText("Blockers"));
+        onView(withId(R.id.app_bar_search)).perform(typeText("Blockers"))
     }
 
 }
