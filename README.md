@@ -1,5 +1,6 @@
 # MoviesDemo
 **A Decade of Movies App**
+It loads movies from assets (movies.json) and store them on Room Database. Retrofit is used to fetch movie's photos using Flickers API.
 
 [[![kotlin](https://img.shields.io/badge/Kotlin-1.4.xxx-brightgreen.svg)](https://kotlinlang.org/) [![MVVM ](https://img.shields.io/badge/Clean--Code-MVVM-brightgreen.svg)](https://github.com/googlesamples/android-architecture)    [![coroutines](https://img.shields.io/badge/coroutines-asynchronous-red.svg)](https://kotlinlang.org/docs/reference/coroutines-overview.html) [![Mockk](https://img.shields.io/badge/Mockk-testing-yellow.svg)](https://mockk.io/)      [![Junit4](https://img.shields.io/badge/Junit4-testing-yellowgreen.svg)](https://junit.org/junit5/)   
 [![Espresso](https://img.shields.io/badge/Espresso-testing-lightgrey.svg)](https://developer.android.com/training/testing/espresso/) 
